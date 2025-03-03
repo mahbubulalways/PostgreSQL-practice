@@ -154,5 +154,24 @@ VALUES (
 
 -- * HERE ARE OPERATIONS
 --INNER JOIN DEPARTMENT AND EMPLOYEE
-
 SELECT * FROM employees as e INNER JOIN departments as d ON e.department_id = d.department_id
+
+SELECT * FROM employees
+JOIN departments USING(department_id)
+
+-- SHOW DEPARTMENT NAME WITH AVERAGE SALARY
+
+SELECT  department_name, FLOOR(AVG(salary)) as average_salary, COUNT(*) as employees, MAX(salary) as max_salary, MIN(salary) as min_salary FROM employees JOIN departments ON employees.department_id=departments.department_id GROUP BY department_name
+
+-- COUNT EMPLOYEE EACH DEPARTMENT
+SELECT department_name, COUNT(*) as employees FROM employees JOIN departments USING(department_id) GROUP BY department_name
+
+--  FIND THE DEPARTMENT NAME WITH THE HIGHEST AVG SALARY
+
+SELECT department_name,  FLOOR(AVG(salary)) as avg_salary FROM employees JOIN departments USING(department_id)  GROUP BY department_name ORDER BY avg_salary DESC LIMIT 1
+
+-- COUNT EMPLOYEES HIRE EACH YEAR
+SELECT COUNT(*) as employees, extract(year from  hire_date::date) as hiring_year from employees GROUP BY hiring_year
+
+-- NORMAL QUERY 
+SELECT COUNT(*) as employee, hire_date from employees GROUP BY hire_date
